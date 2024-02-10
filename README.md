@@ -1,6 +1,19 @@
 # ASP.NETCoreMVCTraining
 The repository using for training ASP.NET Core MVC
 
+Database migration by tool
+
+```powershell
+dotnet tool install --global dotnet-ef
+dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+# Visual Studio
+
+add-migration InitialCreate
+database-update
+```
+
 How to run application
 ## 1. Visual Studio
 
