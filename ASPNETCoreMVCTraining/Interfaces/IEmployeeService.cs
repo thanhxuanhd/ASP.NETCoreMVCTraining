@@ -14,4 +14,6 @@ public interface IEmployeeService
     bool RemoveEmployee(int employeeId);
 
     EmployeeCreateEditViewModel GetById(int employeeId);
+
+    PageData<EmployeeViewModel> GetEmployees(int pageIndex, int pageSize);
 }

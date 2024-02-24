@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\docker-compose.dcproj = ..\docker-compose.dcproj
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASPNETCoreMVCTraining.Tests", "..\ASPNETCoreMVCTraining.Tests\ASPNETCoreMVCTraining.Tests.csproj", "{C1CC5582-7782-42A7-88CC-2ED651776844}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASPNETCoreMVCTraining.Tests", "..\ASPNETCoreMVCTraining.Tests\ASPNETCoreMVCTraining.Tests.csproj", "{C1CC5582-7782-42A7-88CC-2ED651776844}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

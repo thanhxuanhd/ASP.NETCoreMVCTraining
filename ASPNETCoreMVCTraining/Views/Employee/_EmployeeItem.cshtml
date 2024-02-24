@@ -1,0 +1,17 @@
+﻿@using ASPNETCoreMVCTraining.ViewModels
+@model EmployeeViewModel
+
+<div class="col">
+    <div class="card employee-item-@Model.Id">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Email</p>
+            <p class="card-text">@Model.Department</p>
+        </div>
+        <div class="card-footer">
+            <a class="ml-2" asp-area="" asp-controller="Employee" asp-action="Edit"
+               asp-route-id="@Model.Id">Edit</a>
+            <a class="" href="#">Delete</a>
+        </div>
+    </div>
+</div>

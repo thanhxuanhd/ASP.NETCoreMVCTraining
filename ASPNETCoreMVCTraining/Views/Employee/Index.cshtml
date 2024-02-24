@@ -1,46 +1,35 @@
 @using ASPNETCoreMVCTraining.ViewModels
-@model IEnumerable<EmployeeViewModel>
+@model PageData<EmployeeViewModel>
 
 @{
     ViewData["Title"] = "Employee Page";
 }
 <div class="">
     <h2>Employee</h2>
-    <div class="flex float-end">
+    <div class="flex text-end mb-2">
         <a class="btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create">Create</a>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Employee Name</th>
-                <th>Dept</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model.Count() == 0)
-            {
-                <tr>
-                    <th colspan="4" class="text-center">No Data.</th>
-                </tr>
-            }
-            else
-            {
-                @foreach (var employee in Model)
+    <div class="flex">
+        @if (Model.Data.Count() == 0)
+        {
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">No Data</h5>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
+                @foreach (var employee in Model.Data)
                 {
-                    <tr>
-                        <th>@employee.Id</th>
-                        <th>@employee.Name</th>
-                        <th>@employee.Department</th>
-                        <th>
-                            <a class="" asp-area="" asp-controller="Employee" asp-action="Edit"
-                                asp-route-id="@employee.Id">Edit</a>
-                            <a class="" href="#">Delete</a>
-                        </th>
-                    </tr>
+                    @await Html.PartialAsync("_EmployeeItem", employee)
                 }
-            }
-        </tbody>
-    </table>
+            </div>
+
+            @await Html.PartialAsync("_Page", Model.PageInfo)
+        }
+    </div>
 </div>

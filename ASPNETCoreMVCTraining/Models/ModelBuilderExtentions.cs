@@ -1,4 +1,6 @@
+using CsvHelper;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace ASPNETCoreMVCTraining.Models;
 
@@ -23,18 +25,33 @@ public static class ModelBuilderExtensions
                 Name = "Payroll"
             }
         );
-        modelBuilder.Entity<Employee>().HasData(new Employee
+
+        using (var reader = new StreamReader(Path.Combine(Environment.CurrentDirectory, @"Data/mock_data.csv")))
+        using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
         {
-            Id = 1,
-            Name = "Kevin",
-            DeptId = 1,
-            Email = "evin@testemail.com"
-        }, new Employee
-        {
-            Id = 2,
-            Name = "John",
-            DeptId = 2,
-            Email = "John@testemail.com"
-        });
+            var records = csv.GetRecords<EmployeeDataModel>();
+
+            modelBuilder.Entity<Employee>().HasData(records.Select(e => new Employee
+            {
+                Id = e.Id,
+                Name = e.Name,
+                DateOfBirth = e.DateOfBirth,
+                DeptId = e.DeptId,
+                Email = e.Email
+            }));
+        }
     }
+}
+
+public class EmployeeDataModel
+{
+    public int Id { get; set; }
+
+    public string Name { get; set; }
+
+    public string Email { get; set; }
+
+    public int DeptId { get; set; }
+
+    public DateTime? DateOfBirth { get; set; }
 }

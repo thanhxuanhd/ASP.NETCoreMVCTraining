@@ -18,18 +18,22 @@ public class EmployeeController : Controller
         _deptService = deptService;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(int pageIndex = 1, int pageSize = 20)
     {
-        var employees = new List<EmployeeViewModel>();
+        var pageData = new PageData<EmployeeViewModel>();
         try
         {
-            employees = _employeeService.GetEmployees();
+            pageData = _employeeService.GetEmployees(pageIndex, pageSize);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message);
         }
-        return View(employees);
+
+        pageData.PageInfo.Controller = "Employee";
+        pageData.PageInfo.Action = "Index";
+
+        return View(pageData);
     }
 
     public IActionResult Create()

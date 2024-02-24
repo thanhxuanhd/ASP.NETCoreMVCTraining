@@ -1,0 +1,71 @@
+﻿@using ASPNETCoreMVCTraining.ViewModels
+@model PageInfo
+
+<div class="bg-white row align-items-start justify-between border-t border-gray-200 sm:px-6 rounded-md mt-2">
+    <div class="col">
+        <p class="text-sm text-gray-700">
+            Showing
+            <span class="font-medium">@(((Model.PageIndex - 1) * Model.PageSize) + 1)</span>
+            to
+            <span class="font-medium">@(Model.PageIndex * Model.PageSize)</span>
+            of
+            <span class="font-medium">@Model.TotalRecords</span>
+            results
+        </p>
+    </div>
+    <nav class="col" aria-label="Page navigation">
+        <ul class="pagination float-end">
+            @if (Model.PageIndex == 1)
+            {
+                <li class="page-item disabled">
+                    <a class="bg-gray-200 page-link" href="#">Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                       asp-route-pageIndex="1"
+                       asp-route-pageSize="@Model.PageSize">Previous</a>
+                </li>
+            }
+
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                       asp-route-pageIndex="@(Model.PageIndex - 1)"
+                       asp-route-pageSize="@Model.PageSize">@(Model.PageIndex - 1)</a>
+                </li>
+            }
+
+            <li class="page-item disabled">
+                <span class="items-center text-sm font-medium page-link">
+                    @Model.PageIndex
+                </span>
+            </li>
+
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                       asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-pageSize="@Model.PageSize">@(Model.PageIndex + 1)</a>
+                </li>
+            }
+
+            @if (Model.PageIndex == Model.TotalPages)
+            {
+                <li class="page-item disabled">
+                    <a class="bg-gray-200 page-link" href="#">Next</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
+                       asp-route-pageIndex="@Model.TotalPages" asp-route-pageSize="@Model.PageSize">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
