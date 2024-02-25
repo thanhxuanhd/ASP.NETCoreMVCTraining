@@ -1,7 +1,15 @@
+using ASPNETCoreMVCTraining.Interfaces;
+using ASPNETCoreMVCTraining.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register DI
+builder.Services.AddScoped<IScopedService, OtherService>();
+builder.Services.AddTransient<ITransientService, OtherService>();
+builder.Services.AddSingleton<ISingletonService, OtherService>();
 
 var app = builder.Build();
 
