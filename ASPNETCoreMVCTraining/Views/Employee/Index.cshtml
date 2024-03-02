@@ -1,8 +1,14 @@
+@using ASPNETCoreMVCTraining.Interfaces
 @using ASPNETCoreMVCTraining.ViewModels
 @model PageData<EmployeeViewModel>
+@inject IDeptService DeptService
 
 @{
     ViewData["Title"] = "Employee Page";
+    var depts = DeptService.GetDept();
+    string employeeName = ViewData["EmployeeName"] as string ?? string.Empty;
+
+    int? deptId = ViewData["DeptId"] as int?;
 }
 <div class="">
     <h2>Employee</h2>
@@ -10,6 +16,25 @@
         <a class="btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create">Create</a>
     </div>
     <div class="flex">
+        <div class="col mb-2">
+            <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end">
+                <div class="col">
+                    <select asp-for="@deptId" class="form-control form-select" name="deptId" aria-label="DeptId">
+                        <option value="">All</option>
+                        @foreach (var dept in depts)
+                        {
+                            <option value="@dept.Id">@dept.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Employee Name" asp-for="@employeeName" aria-label="Employee Name">
+                </div>
+                <div class="col">
+                    <input type="submit" value="Filter" class="btn btn-light shadow-sm" />
+                </div>
+            </form>
+        </div>
         @if (Model.Data.Count() == 0)
         {
             <div class="col">

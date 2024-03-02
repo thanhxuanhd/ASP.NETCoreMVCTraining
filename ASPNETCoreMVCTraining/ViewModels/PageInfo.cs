@@ -31,5 +31,7 @@ namespace ASPNETCoreMVCTraining.ViewModels
                 return (PageIndex < TotalPages);
             }
         }
+
+        public Dictionary<string,string> Params { get; set; }
     }
 }

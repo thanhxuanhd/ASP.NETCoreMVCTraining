@@ -50,9 +50,20 @@ public class EmployeeService : IEmployeeService
         }).AsNoTracking()];
     }
 
-    public PageData<EmployeeViewModel> GetEmployees(int pageIndex, int pageSize)
+    public PageData<EmployeeViewModel> GetEmployees(int pageIndex, int pageSize, string employeeName, int? deptId)
     {
-        var queries = _applicationDbContext.Employees.Include(e => e.Department);
+        var queries = _applicationDbContext.Employees.Include(e => e.Department).AsQueryable();
+
+        if (!string.IsNullOrEmpty(employeeName))
+        {
+            queries = queries.Where(e => e.Name.Contains(employeeName));
+        }
+
+        if (deptId.HasValue)
+        {
+            queries = queries.Where(e => e.DeptId == deptId);
+        }
+
         var totalCount = queries.Count();
 
         var employees = queries

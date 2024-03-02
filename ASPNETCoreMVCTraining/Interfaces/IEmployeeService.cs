@@ -1,4 +1,3 @@
-using ASPNETCoreMVCTraining.Models;
 using ASPNETCoreMVCTraining.ViewModels;
 
 namespace ASPNETCoreMVCTraining.Interfaces;
@@ -15,5 +14,5 @@ public interface IEmployeeService
 
     EmployeeCreateEditViewModel GetById(int employeeId);
 
-    PageData<EmployeeViewModel> GetEmployees(int pageIndex, int pageSize);
+    PageData<EmployeeViewModel> GetEmployees(int pageIndex, int pageSize, string employeeName, int? deptId);
 }

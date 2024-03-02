@@ -18,12 +18,12 @@ public class EmployeeController : Controller
         _deptService = deptService;
     }
 
-    public IActionResult Index(int pageIndex = 1, int pageSize = 20)
+    public IActionResult Index(string employeeName, int? deptId, int pageIndex = 1, int pageSize = 20)
     {
         var pageData = new PageData<EmployeeViewModel>();
         try
         {
-            pageData = _employeeService.GetEmployees(pageIndex, pageSize);
+            pageData = _employeeService.GetEmployees(pageIndex, pageSize, employeeName, deptId);
         }
         catch (Exception ex)
         {
@@ -32,6 +32,13 @@ public class EmployeeController : Controller
 
         pageData.PageInfo.Controller = "Employee";
         pageData.PageInfo.Action = "Index";
+        ViewData["EmployeeName"] = employeeName;
+        ViewData["DeptId"] = deptId;
+        pageData.PageInfo.Params = new Dictionary<string, string>
+        {
+            { "employeeName", employeeName },
+            { "deptId", deptId.ToString() }
+        };
 
         return View(pageData);
     }

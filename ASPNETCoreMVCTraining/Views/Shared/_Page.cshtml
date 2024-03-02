@@ -1,4 +1,5 @@
 ﻿@using ASPNETCoreMVCTraining.ViewModels
+@using System.Dynamic
 @model PageInfo
 
 <div class="bg-white row align-items-start justify-between border-t border-gray-200 sm:px-6 rounded-md mt-2">
@@ -24,18 +25,32 @@
             else
             {
                 <li class="page-item">
-                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
-                       asp-route-pageIndex="1"
-                       asp-route-pageSize="@Model.PageSize">Previous</a>
+                    @{
+                        var hasFirstPageParams = new ExpandoObject();
+                        hasFirstPageParams.TryAdd("pageIndex", 1);
+                        hasFirstPageParams.TryAdd("pageSize", Model.PageSize);
+                        foreach (var item in Model.Params)
+                        {
+                            hasFirstPageParams.TryAdd(item.Key, item.Value);
+                        }
+                    }
+                    @Html.ActionLink($"Previous", Model.Action, Model.Controller, hasFirstPageParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
             }
 
             @if (Model.HasPreviousPage)
             {
                 <li class="page-item">
-                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
-                       asp-route-pageIndex="@(Model.PageIndex - 1)"
-                       asp-route-pageSize="@Model.PageSize">@(Model.PageIndex - 1)</a>
+                    @{
+                        var hasPreviousParams = new ExpandoObject();
+                        hasPreviousParams.TryAdd("pageIndex", Model.PageIndex - 1);
+                        hasPreviousParams.TryAdd("pageSize", Model.PageSize);
+                        foreach (var item in Model.Params)
+                        {
+                            hasPreviousParams.TryAdd(item.Key, item.Value);
+                        }
+                    }
+                    @Html.ActionLink($"{Model.PageIndex - 1}", Model.Action, Model.Controller, hasPreviousParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
             }
 
@@ -48,8 +63,16 @@
             @if (Model.HasNextPage)
             {
                 <li class="page-item">
-                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
-                       asp-route-pageIndex="@(Model.PageIndex + 1)" asp-route-pageSize="@Model.PageSize">@(Model.PageIndex + 1)</a>
+                    @{
+                        var hasNextPageParams = new ExpandoObject();
+                        hasNextPageParams.TryAdd("pageIndex", Model.PageIndex + 1);
+                        hasNextPageParams.TryAdd("pageSize", Model.PageSize);
+                        foreach (var item in Model.Params)
+                        {
+                            hasNextPageParams.TryAdd(item.Key, item.Value);
+                        }
+                    }
+                    @Html.ActionLink($"{Model.PageIndex + 1}", Model.Action, Model.Controller, hasNextPageParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
             }
 
@@ -62,8 +85,16 @@
             else
             {
                 <li class="page-item">
-                    <a class="pager-btn items-center text-sm font-medium page-link" asp-area="" asp-controller="@Model.Controller" asp-action="@Model.Action"
-                       asp-route-pageIndex="@Model.TotalPages" asp-route-pageSize="@Model.PageSize">Next</a>
+                    @{
+                        var endParams = new ExpandoObject();
+                        endParams.TryAdd("pageIndex", Model.TotalPages);
+                        endParams.TryAdd("pageSize", Model.PageSize);
+                        foreach (var item in Model.Params)
+                        {
+                            endParams.TryAdd(item.Key, item.Value);
+                        }
+                    }
+                    @Html.ActionLink("Next", Model.Action, Model.Controller, endParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
             }
         </ul>
