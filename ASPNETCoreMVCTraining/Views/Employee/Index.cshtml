@@ -17,9 +17,11 @@
     </div>
     <div class="flex">
         <div class="col mb-2">
-            <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end">
+            <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end"
+                id="employeeSearchForm">
                 <div class="col">
-                    <select asp-for="@deptId" class="form-control form-select" name="deptId" aria-label="DeptId">
+                    <select asp-for="@deptId" class="form-control form-select" name="deptId" aria-label="DeptId"
+                        onchange="employeePageController.onDeptChange()">
                         <option value="">All</option>
                         @foreach (var dept in depts)
                         {
@@ -28,7 +30,8 @@
                     </select>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" placeholder="Employee Name" asp-for="@employeeName" aria-label="Employee Name">
+                    <input type="text" class="form-control" placeholder="Employee Name" asp-for="@employeeName"
+                        aria-label="Employee Name">
                 </div>
                 <div class="col">
                     <input type="submit" value="Filter" class="btn btn-light shadow-sm" />
@@ -58,3 +61,7 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/employee/index.js" asp-append-version="true"></script>
+}

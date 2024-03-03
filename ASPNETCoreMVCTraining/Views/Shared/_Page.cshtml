@@ -1,5 +1,6 @@
 ﻿@using ASPNETCoreMVCTraining.ViewModels
-@using System.Dynamic
+@using ASPNETCoreMVCTraining.Interfaces;
+@inject IPageService PageService;
 @model PageInfo
 
 <div class="bg-white row align-items-start justify-between border-t border-gray-200 sm:px-6 rounded-md mt-2">
@@ -26,13 +27,7 @@
             {
                 <li class="page-item">
                     @{
-                        var hasFirstPageParams = new ExpandoObject();
-                        hasFirstPageParams.TryAdd("pageIndex", 1);
-                        hasFirstPageParams.TryAdd("pageSize", Model.PageSize);
-                        foreach (var item in Model.Params)
-                        {
-                            hasFirstPageParams.TryAdd(item.Key, item.Value);
-                        }
+                        var hasFirstPageParams = PageService.GetPageParams(1, Model);
                     }
                     @Html.ActionLink($"Previous", Model.Action, Model.Controller, hasFirstPageParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
@@ -42,13 +37,7 @@
             {
                 <li class="page-item">
                     @{
-                        var hasPreviousParams = new ExpandoObject();
-                        hasPreviousParams.TryAdd("pageIndex", Model.PageIndex - 1);
-                        hasPreviousParams.TryAdd("pageSize", Model.PageSize);
-                        foreach (var item in Model.Params)
-                        {
-                            hasPreviousParams.TryAdd(item.Key, item.Value);
-                        }
+                        var hasPreviousParams = PageService.GetPageParams(Model.PageIndex - 1, Model);
                     }
                     @Html.ActionLink($"{Model.PageIndex - 1}", Model.Action, Model.Controller, hasPreviousParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
@@ -64,13 +53,7 @@
             {
                 <li class="page-item">
                     @{
-                        var hasNextPageParams = new ExpandoObject();
-                        hasNextPageParams.TryAdd("pageIndex", Model.PageIndex + 1);
-                        hasNextPageParams.TryAdd("pageSize", Model.PageSize);
-                        foreach (var item in Model.Params)
-                        {
-                            hasNextPageParams.TryAdd(item.Key, item.Value);
-                        }
+                        var hasNextPageParams = PageService.GetPageParams(Model.PageIndex + 1, Model);
                     }
                     @Html.ActionLink($"{Model.PageIndex + 1}", Model.Action, Model.Controller, hasNextPageParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
@@ -86,13 +69,7 @@
             {
                 <li class="page-item">
                     @{
-                        var endParams = new ExpandoObject();
-                        endParams.TryAdd("pageIndex", Model.TotalPages);
-                        endParams.TryAdd("pageSize", Model.PageSize);
-                        foreach (var item in Model.Params)
-                        {
-                            endParams.TryAdd(item.Key, item.Value);
-                        }
+                        var endParams = PageService.GetPageParams(Model.TotalPages, Model);
                     }
                     @Html.ActionLink("Next", Model.Action, Model.Controller, endParams, new { @class = "pager-btn items-center text-sm font-medium page-link" })
                 </li>
