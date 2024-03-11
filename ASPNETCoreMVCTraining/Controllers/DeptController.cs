@@ -1,9 +1,10 @@
 using ASPNETCoreMVCTraining.Interfaces;
 using ASPNETCoreMVCTraining.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNETCoreMVCTraining.Controllers;
-
+[Authorize]
 public class DeptController : Controller
 {
     private readonly ILogger<DeptController> _logger;

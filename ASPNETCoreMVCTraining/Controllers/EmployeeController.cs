@@ -1,10 +1,12 @@
 using ASPNETCoreMVCTraining.Interfaces;
 using ASPNETCoreMVCTraining.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPNETCoreMVCTraining.Controllers;
 
+[Authorize]
 public class EmployeeController : Controller
 {
     private readonly ILogger<EmployeeController> _logger;

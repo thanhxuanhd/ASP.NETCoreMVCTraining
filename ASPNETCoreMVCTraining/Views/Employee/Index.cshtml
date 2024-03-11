@@ -10,55 +10,61 @@
 
     int? deptId = ViewData["DeptId"] as int?;
 }
-<div class="">
-    <h2>Employee</h2>
-    <div class="flex text-end mb-2">
-        <a class="btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create">Create</a>
-    </div>
-    <div class="flex">
-        <div class="col mb-2">
-            <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end"
-                id="employeeSearchForm">
-                <div class="col">
-                    <select asp-for="@deptId" class="form-control form-select" name="deptId" aria-label="DeptId"
-                        onchange="employeePageController.onDeptChange()">
-                        <option value="">All</option>
-                        @foreach (var dept in depts)
-                        {
-                            <option value="@dept.Id">@dept.Name</option>
-                        }
-                    </select>
+<div class="row">
+    <div class="col m-auto">
+        <div class="card">
+            <div class="card-body">
+                <h2>Employee</h2>
+                <div class="flex text-end mb-2">
+                    <a class="btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create">Create</a>
                 </div>
-                <div class="col">
-                    <input type="text" class="form-control" placeholder="Employee Name" asp-for="@employeeName"
-                        aria-label="Employee Name">
-                </div>
-                <div class="col">
-                    <input type="submit" value="Filter" class="btn btn-light shadow-sm" />
-                </div>
-            </form>
-        </div>
-        @if (Model.Data.Count() == 0)
-        {
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">No Data</h5>
+                <div class="flex">
+                    <div class="col mb-2">
+                        <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end"
+                            id="employeeSearchForm">
+                            <div class="col">
+                                <select asp-for="@deptId" class="form-control form-select" name="deptId"
+                                    aria-label="DeptId" onchange="employeePageController.onDeptChange()">
+                                    <option value="">All</option>
+                                    @foreach (var dept in depts)
+                                    {
+                                        <option value="@dept.Id">@dept.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Employee Name"
+                                    asp-for="@employeeName" aria-label="Employee Name">
+                            </div>
+                            <div class="col">
+                                <input type="submit" value="Filter" class="btn btn-light shadow-sm" />
+                            </div>
+                        </form>
                     </div>
+                    @if (Model.Data.Count() == 0)
+                    {
+                        <div class="col">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center">No Data</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
+                            @foreach (var employee in Model.Data)
+                            {
+                                @await Html.PartialAsync("_EmployeeItem", employee)
+                            }
+                        </div>
+
+                        @await Html.PartialAsync("_Page", Model.PageInfo)
+                    }
                 </div>
             </div>
-        }
-        else
-        {
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
-                @foreach (var employee in Model.Data)
-                {
-                    @await Html.PartialAsync("_EmployeeItem", employee)
-                }
-            </div>
-
-            @await Html.PartialAsync("_Page", Model.PageInfo)
-        }
+        </div>
     </div>
 </div>
 

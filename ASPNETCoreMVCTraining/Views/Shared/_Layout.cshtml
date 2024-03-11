@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/ASPNETCoreMVCTraining.styles.css" asp-append-version="true" />
 </head>
 
-<body>
+<body class="bg-light">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -27,13 +27,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home"
                                 asp-action="Privacy">Privacy</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Employee"
-                                asp-action="Index">Employee</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Dept" asp-action="Index">Dept</a>
-                        </li>
+                        <partial name="_LoginPartial" />
                     </ul>
                 </div>
             </div>

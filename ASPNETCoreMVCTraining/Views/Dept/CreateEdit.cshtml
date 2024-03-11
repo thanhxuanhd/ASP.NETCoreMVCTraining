@@ -5,27 +5,31 @@
     ViewData["Title"] = title;
 }
 
-<div class="container">
-    <form asp-validation-summary="ModelOnly">
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.Id)
-        <div class="mb-3">
-            <label for="Name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="Name" placeholder="Name" asp-for="Name" />
-            <span asp-validation-for="Name" class="text-danger"></span>
+<div class="row">
+    <div class="card">
+        <div class="card-body">
+            <form asp-validation-summary="ModelOnly">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+                <div class="mb-3">
+                    <label for="Name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="Name" placeholder="Name" asp-for="Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    @if (Model.Id.HasValue)
+                    {
+                        <button class="btn btn-primary">Edit</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary">Create</button>
+                    }
+                    <a class="btn btn-light" asp-area="" asp-controller="Dept" asp-action="Index">Cancel</a>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            @if (Model.Id.HasValue)
-            {
-                <button class="btn btn-primary">Edit</button>
-            }
-            else
-            {
-                <button class="btn btn-primary">Create</button>
-            }
-            <a class="btn btn-light" asp-area="" asp-controller="Dept" asp-action="Index">Cancel</a>
-        </div>
-    </form>
+    </div>
 </div>
 
 @section Scripts {
