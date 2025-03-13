@@ -24,6 +24,3 @@ Setup https certificate before run follow [link](https://learn.microsoft.com/vi-
 ```powershell
 docker-compose up -d trainingapp
 ```
-
-## 4. Tye
-### TBC
