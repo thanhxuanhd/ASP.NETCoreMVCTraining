@@ -1,0 +1,83 @@
+﻿openapi: "3.1.0"
+info:
+  title: "ASPNETCoreMVCTraining API"
+  description: "ASPNETCoreMVCTraining API"
+  version: "1.0.0"
+servers:
+  - url: "https://localhost:7061"
+paths:
+  /api/Employee:
+    get:
+      summary: "GET api/Employee"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/Employee"
+      responses:
+        "200":
+          description: "OK"
+  /api/Employee/GetAll:
+    get:
+      summary: "GET api/Employee/GetAll"
+      responses:
+        "200":
+          description: "OK"
+  /api/Employee/{id}:
+    get:
+      summary: "GET api/Employee/{id}"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: false
+      responses:
+        "200":
+          description: "OK"
+    put:
+      summary: "PUT api/Employee/{id}"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: false
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/Employee/{id}"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: false
+      responses:
+        "200":
+          description: "OK"
+  /api/Dept:
+    get:
+      summary: "GET api/Dept"
+      responses:
+        "200":
+          description: "OK"
+    post:
+      summary: "POST api/Dept"
+      responses:
+        "200":
+          description: "OK"
+  /api/Dept/{id}:
+    put:
+      summary: "PUT api/Dept/{id}"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: false
+      responses:
+        "200":
+          description: "OK"
+    delete:
+      summary: "DELETE api/Dept/{id}"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: false
+      responses:
+        "200":
+          description: "OK"

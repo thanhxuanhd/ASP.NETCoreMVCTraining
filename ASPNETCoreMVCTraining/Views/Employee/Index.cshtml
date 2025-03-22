@@ -1,5 +1,5 @@
-@using ASPNETCoreMVCTraining.Interfaces
-@using ASPNETCoreMVCTraining.ViewModels
+@using ASPNETCoreMVCTraining.Application.Interfaces
+@using ASPNETCoreMVCTraining.Application.ViewModels
 @model PageData<EmployeeViewModel>
 @inject IDeptService DeptService
 
@@ -15,16 +15,13 @@
         <div class="card">
             <div class="card-body">
                 <h2>Employee</h2>
-                <div class="flex text-end mb-2">
-                    <a class="btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create">Create</a>
-                </div>
                 <div class="flex">
                     <div class="col mb-2">
                         <form asp-controller="Employee" asp-action="Index" method="get" class="row align-content-end"
-                            id="employeeSearchForm">
+                              id="employeeSearchForm">
                             <div class="col">
                                 <select asp-for="@deptId" class="form-control form-select" name="deptId"
-                                    aria-label="DeptId" onchange="employeePageController.onDeptChange()">
+                                        aria-label="DeptId" onchange="employeePageController.onDeptChange()">
                                     <option value="">All</option>
                                     @foreach (var dept in depts)
                                     {
@@ -34,10 +31,19 @@
                             </div>
                             <div class="col">
                                 <input type="text" class="form-control" placeholder="Employee Name"
-                                    asp-for="@employeeName" aria-label="Employee Name">
+                                       asp-for="@employeeName" aria-label="Employee Name">
                             </div>
                             <div class="col">
-                                <input type="submit" value="Filter" class="btn btn-light shadow-sm" />
+                                <button type="submit" class="btn btn-light shadow-sm" title="Search">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                    </svg>
+                                </button>
+                                <a class="ms-2 btn btn-primary" asp-area="" asp-controller="Employee" asp-action="Create" title="Create">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+                                    </svg>
+                                </a>
                             </div>
                         </form>
                     </div>
@@ -53,13 +59,18 @@
                     }
                     else
                     {
-                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-4">
+                        <div class="table-responsive">
+                            <div class="row table-header">
+                                <div class="table-cell text-left">Name</div>
+                                <div class="table-cell text-left">Email</div>
+                                <div class="table-cell text-left">Department</div>
+                                <div class="table-cell text-left">Action</div>
+                            </div>
                             @foreach (var employee in Model.Data)
                             {
                                 @await Html.PartialAsync("_EmployeeItem", employee)
                             }
                         </div>
-
                         @await Html.PartialAsync("_Page", Model.PageInfo)
                     }
                 </div>

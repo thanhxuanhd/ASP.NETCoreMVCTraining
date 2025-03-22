@@ -1,5 +1,5 @@
-using ASPNETCoreMVCTraining.Interfaces;
-using ASPNETCoreMVCTraining.ViewModels;
+using ASPNETCoreMVCTraining.Application.Interfaces;
+using ASPNETCoreMVCTraining.Application.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

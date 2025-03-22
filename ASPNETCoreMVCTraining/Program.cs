@@ -1,6 +1,7 @@
-using ASPNETCoreMVCTraining.Interfaces;
+using ASPNETCoreMVCTraining.Application.Interfaces;
+using ASPNETCoreMVCTraining.Application.Services;
 using ASPNETCoreMVCTraining.Models;
-using ASPNETCoreMVCTraining.Services;
+using ASPNETCoreMVCTraining.Persistent;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<App
 builder.Services.AddScoped<IDeptService, DeptService>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IPageService, PageService>();
+builder.AddServiceDefaults();
 
 var app = builder.Build();
 
@@ -34,6 +36,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapDefaultEndpoints();
 
 app.MapControllerRoute(
     name: "MyArea",

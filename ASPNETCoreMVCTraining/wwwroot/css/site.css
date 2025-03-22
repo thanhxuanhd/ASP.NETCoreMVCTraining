@@ -20,3 +20,42 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.table-responsive .row {
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.table-header, .table-row {
+  display: flex;
+}
+.table-header {
+  font-weight: bold;
+  background-color: #f8f9fa;
+}
+.table-cell {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+.table-cell:last-child {
+  /*border-right: none;*/
+}
+
+@media (max-width: 768px) {
+  .table-responsive .row {
+    flex-wrap: wrap;
+  }
+  .table-responsive .col-3 {
+    width: 50%;
+    padding: 5px 0;
+  }
+}
+@media (max-width: 480px) {
+  .table-responsive .col-3 {
+    width: 100%;
+    text-align: left;
+    padding-left: 15px;
+  }
+}

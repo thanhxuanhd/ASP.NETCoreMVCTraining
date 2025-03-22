@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="7.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\ASPNETCoreMVCTraining\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ASPNETCoreMVCTraining.Application\ASPNETCoreMVCTraining.Application.csproj" />
+      <ProjectReference Include="..\ASPNETCoreMVCTraining.ServiceDefault\ASPNETCoreMVCTraining.ServiceDefault.csproj" />
+    </ItemGroup>
+
+</Project>

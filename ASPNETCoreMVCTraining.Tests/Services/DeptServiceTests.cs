@@ -1,6 +1,10 @@
-﻿using ASPNETCoreMVCTraining.Models;
-using ASPNETCoreMVCTraining.Services;
+﻿using ASPNETCoreMVCTraining.Application.Services;
+using ASPNETCoreMVCTraining.Domain.Models;
+using ASPNETCoreMVCTraining.Models;
+using ASPNETCoreMVCTraining.Persistent;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace ASPNETCoreMVCTraining.Tests.Services;
 
@@ -10,15 +14,17 @@ public class DeptServiceTests
     private ApplicationDbContext _applicationDbContext;
     private DeptService _deptService;
     private List<Dept> _depts;
+    private Mock<ILogger<DeptService>> _logger;
 
     [SetUp]
     public void Setup()
     {
+        _logger = new Mock<ILogger<DeptService>>();
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
           .UseInMemoryDatabase(databaseName: "ASPNETCoreMVCTrainingDb")
           .Options;
         _applicationDbContext = new ApplicationDbContext(options);
-        _deptService = new DeptService(_applicationDbContext);
+        _deptService = new DeptService(_applicationDbContext, _logger.Object);
         _depts = [];
     }
 

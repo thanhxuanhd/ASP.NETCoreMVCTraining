@@ -1,10 +1,13 @@
-version: "3.4"
-
 services:
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
   trainingapp:
     image: ${DOCKER_REGISTRY-}trainingapp
+    build:
+      context: .
+      dockerfile: ASPNETCoreMVCTraining/Dockerfile
+  trainingapp.api:
+    image: ${DOCKER_REGISTRY-}trainingapp.api
     build:
       context: .
       dockerfile: ASPNETCoreMVCTraining/Dockerfile

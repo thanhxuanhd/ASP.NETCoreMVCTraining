@@ -24,6 +24,24 @@ services:
       - "$HTTPS_APP_PORTS:$HTTPS_APP_PORTS"
     volumes:
       - ./https/:/https/
+        
+  trainingapp.api:
+    container_name: trainingapp.api
+    image: ${DOCKER_REGISTRY-}trainingapp.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=
+      - ASPNETCORE_HTTPS_PORTS=$HTTPS_APP_PORTS
+      - ASPNETCORE_HTTP_PORTS=$HTTP_APP_PORTS
+      - "ASPNETCORE_Kestrel__Certificates__Default__Password=$HTTPS_CREDENTIAL"
+      - "ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
+      - "ConnectionStrings:ApplicationDbContext=Server=mssql,1433;Database=ASPNETCoreMVCTrainingDb;User Id=sa;Password=Pass@word;TrustServerCertificate=True;"
+    depends_on:
+      - mssql
+    ports:
+      - "$HTTP_APP_PORTS:$HTTP_APP_PORTS"
+      - "$HTTPS_APP_PORTS:$HTTPS_APP_PORTS"
+    volumes:
+      - ./https/:/https/l
 networks:
     aspcore-network:
         driver: bridge
