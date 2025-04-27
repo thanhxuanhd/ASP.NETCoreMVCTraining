@@ -13,4 +13,10 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="LibraryManagement.Domain\obj\LibraryManagement.Domain.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="LibraryManagement.Domain\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="LibraryManagement.Domain\obj\project.packagespec.json" />
+  </ItemGroup>
+
 </Project>
