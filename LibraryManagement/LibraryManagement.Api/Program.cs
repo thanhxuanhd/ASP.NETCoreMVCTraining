@@ -1,4 +1,5 @@
 using System.Text;
+using LibraryManagement.Api.Middleware;
 using LibraryManagement.Domain.Models;
 using LibraryManagement.Persistent;
 using LibraryManagement.Service.Interfaces;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,12 +16,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext"), 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationDbContext"),
         b => b.MigrationsAssembly("LibraryManagement.Api")));
-
-builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
 
 builder.Services.AddIdentity<User, Role>(options => // Use your User and Role classes
     {
@@ -54,8 +52,6 @@ builder.Services.AddAuthentication(options =>
                                                                                    "JWT Key not configured"))),
             ClockSkew = TimeSpan.Zero
         };
-        // Optional: Handle token validation events if needed
-        // options.Events = new JwtBearerEvents { ... };
     });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
@@ -65,6 +61,8 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger(options => { options.OpenApiVersion = OpenApiSpecVersion.OpenApi3_0; });
 
 var app = builder.Build();
 
@@ -73,7 +71,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.InitialData();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 app.UseAuthentication();

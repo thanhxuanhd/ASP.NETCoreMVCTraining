@@ -5,8 +5,9 @@ namespace LibraryManagement.Api.Auth;
 public class LoginRequestDto
 {
     [Required]
-    public string Username { get; set; }
+    public required string Username { get; set; }
     
     [Required]
-    public string Password { get; set; }
+    [DataType(DataType.Password)]
+    public required string Password { get; set; }
 }

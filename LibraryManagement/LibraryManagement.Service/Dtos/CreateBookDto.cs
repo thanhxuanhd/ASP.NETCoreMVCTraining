@@ -1,12 +1,14 @@
+using System.ComponentModel.DataAnnotations;
 using LibraryManagement.Domain.Models;
 
-namespace LibraryManagement.Service.Dto;
+namespace LibraryManagement.Service.Dtos;
 
 public class CreateBookDto
 {
-    public string Title { get; set; }
+    [Required]
+    public required string Title { get; set; }
     
-    public string Description { get; set; }
+    public string? Description { get; set; }
     
     public DateTime PublicationDate { get; set; }
 

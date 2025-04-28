@@ -1,5 +1,5 @@
 using LibraryManagement.Domain.Enums;
-using LibraryManagement.Service.Dto;
+using LibraryManagement.Service.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

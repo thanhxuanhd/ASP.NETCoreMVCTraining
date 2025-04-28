@@ -1,5 +1,5 @@
 using LibraryManagement.Persistent;
-using LibraryManagement.Service.Dto;
+using LibraryManagement.Service.Dtos;
 using LibraryManagement.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,13 +39,44 @@ public class BookService(ApplicationDbContext dbContext) : IBookService
         throw new NotImplementedException();
     }
 
-    public Task<BookDto> GetById(Guid id)
+    public async Task<BookDto?> GetById(Guid id)
     {
-        throw new NotImplementedException();
+        var book = await _dbContext.Books.FirstOrDefaultAsync(b => b.Id == id);
+
+        if (book is null)
+        {
+            return null;
+        }
+
+        return new BookDto()
+        {
+            Id = book.Id,
+            Description = book.Description ?? string.Empty,
+            Title = book.Title,
+            PublicationDate = book.PublicationDate
+        };
     }
 
-    public Task<IEnumerable<BookDto>> Get(string keyword = "", int pageSize = 15, int pageIndex = 0)
+    public async Task<IEnumerable<BookDto>> Get(string? keyword = "", int? pageSize = 15, int? pageIndex = 0)
     {
-        throw new NotImplementedException();
+        var query = _dbContext.Books.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(keyword))
+        {
+            query = query.Where(b =>
+                b.Title.Contains(keyword) ||
+                (!string.IsNullOrWhiteSpace(b.Description) && b.Description.Contains(keyword)));
+        }
+
+        pageSize ??= 15;
+        pageIndex ??= 0;
+        query = query.OrderBy(b => b.Title).Skip(pageIndex.Value * pageSize.Value).Take(pageSize.Value);
+
+        return await query.AsNoTracking().Select(b => new BookDto()
+        {
+            Id = b.Id,
+            Title = b.Title,
+            Description = b.Description ?? string.Empty
+        }).ToListAsync();
     }
 }

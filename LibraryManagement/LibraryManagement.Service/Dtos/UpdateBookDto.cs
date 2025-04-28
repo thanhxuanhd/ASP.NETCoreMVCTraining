@@ -1,6 +1,6 @@
 using LibraryManagement.Domain.Models;
 
-namespace LibraryManagement.Service.Dto;
+namespace LibraryManagement.Service.Dtos;
 
 public class UpdateBookDto
 {

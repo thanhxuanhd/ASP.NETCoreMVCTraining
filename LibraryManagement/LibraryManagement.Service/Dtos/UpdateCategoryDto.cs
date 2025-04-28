@@ -1,6 +1,6 @@
-namespace LibraryManagement.Service.Dto;
+namespace LibraryManagement.Service.Dtos;
 
-public class CategoryDto
+public class UpdateCategoryDto
 {
     public Guid Id { get; set; }
     

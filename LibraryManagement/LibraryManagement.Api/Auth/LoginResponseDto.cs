@@ -9,6 +9,8 @@ public class LoginResponseDto
     public DateTime? Expiration { get; set; }
     
     public IList<string>? Roles { get; set; }
+    
+    public string? RefreshToken { get; set; }
 
     public bool Success {
         get;

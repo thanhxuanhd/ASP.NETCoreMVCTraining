@@ -1,4 +1,4 @@
-namespace LibraryManagement.Service.Dto;
+namespace LibraryManagement.Service.Dtos;
 
 public class CreateReservationDto
 {

@@ -1,4 +1,4 @@
-using LibraryManagement.Service.Dto;
+using LibraryManagement.Service.Dtos;
 
 namespace LibraryManagement.Service.Interfaces;
 
@@ -10,7 +10,7 @@ public interface IBookService
 
     Task<bool> DeleteBook(Guid id);
 
-    Task<BookDto> GetById(Guid id);
+    Task<BookDto?> GetById(Guid id);
     
-    Task<IEnumerable<BookDto>> Get(string keyword = "", int pageSize = 15, int pageIndex = 0);
+    Task<IEnumerable<BookDto>> Get(string? keyword = "", int? pageSize = 15, int? pageIndex = 0);
 }
